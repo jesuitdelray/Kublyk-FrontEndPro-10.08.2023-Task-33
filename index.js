@@ -1,16 +1,13 @@
-function generateList(array) {
+function generateList(array, parentNumbers = []) {
     let result = ""
-    let number = ""
 
     array.forEach((item, index) => {
-        const numberCounter = number + (index + 1)
-        result += `<li>${numberCounter}. ${item}`
+        const numbers = [...parentNumbers, index + 1]
+        const number = numbers.join(".")
 
-        if (Array.isArray(item)) {
-            result += `<ul>${generateList(item, numberCounter + ".")}</ul>`
-        }
-
-        result += "</li>"
+        result += `<li>${number} ${
+            Array.isArray(item) ? "<ul>" + generateList(item, numbers) + "</ul>" : ""
+        }</li>`
     })
 
     return result
