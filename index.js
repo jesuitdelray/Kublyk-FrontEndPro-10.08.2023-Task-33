@@ -1,22 +1,22 @@
-function generateList(array, prevItem = null, counter = 1) {
-    return array
-        .map(item => {
-            if (Array.isArray(item)) {
-                return `<ul>${generateList(item)}</ul>`
-            } else {
-                if (item !== prevItem) {
-                    counter = 0
-                    prevItem = item
-                } else {
-                    counter++
-                }
-                return `<li>${item}${counter > 0 ? "." + counter : ""}</li>`
-            }
-        })
-        .join("")
+function generateList(array) {
+    let result = ""
+    let number = ""
+
+    array.forEach((item, index) => {
+        const numberCounter = number + (index + 1)
+        result += `<li>${numberCounter}. ${item}`
+
+        if (Array.isArray(item)) {
+            result += `<ul>${generateList(item, numberCounter + ".")}</ul>`
+        }
+
+        result += "</li>"
+    })
+
+    return result
 }
 
-const arr = [1, 2, 3, [1, 2, 3, 4, [1, 1.2, 1.2, 1.2]]]
-const resultHTML = generateList(arr)
+const data = [1, 2, 3, [1, 2, 3, 4, [1, 2, 3, 4]]]
+const nestedListHTML = `<ul>${generateList(data)}</ul>`
 
-document.body.innerHTML += resultHTML
+document.body.innerHTML += nestedListHTML
