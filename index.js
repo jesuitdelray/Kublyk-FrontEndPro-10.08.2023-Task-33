@@ -17,6 +17,6 @@ function generateList(array) {
 }
 
 const data = [1, 2, 3, [1, 2, 3, 4, [1, 2, 3, 4]]]
-const nestedListHTML = `<ul>${generateList(data)}</ul>`
+const listHTML = `<ul>${generateList(data)}</ul>`
 
-document.body.innerHTML += nestedListHTML
+document.body.innerHTML += listHTML
